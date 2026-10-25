@@ -2,36 +2,25 @@
 
 **Find products fast.**
 
-Aisle 7 is a smart shopping web app that helps customers find products quickly and follow the most efficient route through a store.
+Aisle 7 is a shopping web app that helps customers find products quickly and navigate the most efficient route through a store.
 
 ## Features
 
-- 🛒 Browse and select products
-- 🗺️ Visual store layout
-- 📍 See where products are located
-- 🚀 Generate an efficient shopping route
+- 🛒 Select products to shop for
+- 🏬 Interactive visual store layout
+- 📍 Locate products in the store
+- 🗺️ Generate an efficient shopping route
 
 ## Tech Stack
 
-- React
-- Vite
+- HTML
 - CSS
+- JavaScript
 
 ## Getting Started
 
-```bash
-# Clone the repository
-git clone <repository-url>
-
-# Navigate to the project
-cd aisle-7
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
-```
+1. Clone the repository.
+2. Open `index.html` in your browser.
 
 ## Project Status
 
