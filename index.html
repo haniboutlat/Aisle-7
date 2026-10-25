@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f4">
+    <meta name="description" content="Plan a faster supermarket trip with Aisle 7.">
+    <title>Aisle 7 — Your smarter shop starts here</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Aisle 7 home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Aisle<span class="brand-seven">7</span></span>
+      </a>
+      <div class="topbar-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
+          <svg class="theme-icon theme-icon-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5 8.5 8.5 0 1 0 20.5 15.5Z"/></svg>
+          <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          <span id="theme-label">Dark mode</span>
+        </button>
+        <div class="topbar-right hidden" id="planner-header">
+        <span class="open-status"><span class="status-dot"></span> Store open</span>
+        <span class="avatar" aria-label="Guest profile">G</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="store-entry" id="store-entry">
+      <div class="entry-content">
+        <span class="entry-kicker">LET’S GET YOU THERE</span>
+        <h1>Where are you shopping today?</h1>
+        <p class="entry-intro">Scan your store’s QR code or choose a store to start planning your trip.</p>
+        <button class="scan-card" id="open-scanner" type="button">
+          <span class="scan-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M4 11V5h7M21 5h7v6M28 21v6h-7M11 27H4v-6M5 16h22M10 13v6m4-6v6m5-6v6m4-6v6"/></svg>
+          </span>
+          <span class="scan-copy"><strong>Scan store QR code</strong><span>Point your camera at the code in store</span></span>
+          <span class="entry-arrow" aria-hidden="true">›</span>
+        </button>
+        <div class="entry-divider"><span></span><small>OR CHOOSE A STORE</small><span></span></div>
+        <button class="store-option" id="choose-store" type="button">
+          <span class="entry-store-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.3"/></svg>
+          </span>
+          <span class="scan-copy"><strong>Albert Heijn Kiel</strong><span>Sint-Bernardsesteenweg 143</span></span>
+          <span class="entry-arrow" aria-hidden="true">›</span>
+        </button>
+        <p class="demo-note"><span aria-hidden="true">✳</span> Demo store · Product availability is illustrative</p>
+      </div>
+    </main>
+
+    <main class="page-shell hidden" id="planner-app">
+      <section class="welcome-row">
+        <div>
+          <p class="eyebrow">YOUR SMARTER SHOP STARTS HERE</p>
+          <h1>Good morning, shopper <span aria-hidden="true">✳</span></h1>
+          <p class="welcome-copy">Build your list. We’ll find the quickest way around.</p>
+        </div>
+        <div class="store-picker">
+          <span class="store-pin" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>
+          </span>
+          <div class="store-picker-copy"><span class="field-label">SHOPPING AT</span><button class="store-picker-trigger" id="store-picker-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="store-options"><span>Albert Heijn Kiel</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button></div>
+          <div class="store-options hidden" id="store-options" role="menu" aria-label="Choose a store">
+            <button class="store-option-item" id="store-option-ah-kiel" type="button" role="menuitemradio" aria-checked="true">
+              <span class="store-option-copy"><strong>Albert Heijn Kiel</strong><small>Sint-Bernardsesteenweg 143</small></span>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 10 3.2 3.2L15 6.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="Shopping planner">
+        <aside class="left-column">
+          <section class="panel catalog-panel mobile-tab-panel" id="panel-shop" role="tabpanel" aria-labelledby="tab-shop" data-mobile-tab="shop">
+            <div class="panel-heading">
+              <div>
+                <span class="section-kicker">THE GOOD STUFF</span>
+                <h2>Find your items</h2>
+              </div>
+              <span class="catalog-count" id="catalog-count">20 items</span>
+            </div>
+            <label class="search-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 4.2 4.2"></path></svg>
+              <input id="product-search" type="search" placeholder="Search products..." autocomplete="off">
+              <kbd>/</kbd>
+            </label>
+            <div class="category-tabs" id="category-tabs" aria-label="Filter products"></div>
+            <div class="product-list" id="product-list" aria-live="polite"></div>
+            <p class="no-results hidden" id="no-results">No products found. Try a different search.</p>
+          </section>
+
+          <section class="panel list-panel mobile-tab-panel" id="panel-list" role="tabpanel" aria-labelledby="tab-list" data-mobile-tab="list">
+            <div class="list-heading">
+              <div>
+                <span class="section-kicker">READY WHEN YOU ARE</span>
+                <h2>Your shopping list <span class="count-bubble" id="list-count">0</span></h2>
+              </div>
+              <button class="text-button hidden" id="clear-list" type="button">Clear all</button>
+            </div>
+            <div class="shopping-items" id="shopping-items"></div>
+            <div class="empty-list" id="empty-list">
+              <p>Your list is looking a little light.</p>
+              <span>Add a few favorites to plan your route.</span>
+            </div>
+            <div class="list-total hidden" id="list-total"></div>
+            <button class="list-add-items" id="add-list-items" type="button">
+              <span aria-hidden="true">+</span> Add items
+            </button>
+          </section>
+        </aside>
+
+        <section class="panel map-panel mobile-tab-panel" id="panel-route" role="tabpanel" aria-labelledby="tab-route" data-mobile-tab="route">
+          <div class="map-heading">
+            <div>
+              <span class="section-kicker">ALBERT HEIJN · KIEL</span>
+              <h2 id="map-title">Your shopping route</h2>
+              <p>Follow your stops from entrance to checkout.</p>
+            </div>
+            <span class="map-live"><span></span> LIVE MAP</span>
+          </div>
+          <div class="map-stats" aria-live="polite">
+            <div class="stat-card"><span class="stat-icon stop-icon" aria-hidden="true">⌖</span><span><strong id="stop-stat">0</strong><small>PRODUCTS</small></span></div>
+            <div class="stat-card"><span class="stat-icon route-icon" aria-hidden="true">↗</span><span><strong id="distance-stat">—</strong><small>EST. WALK</small></span></div>
+            <div class="stat-card"><span class="stat-icon time-icon" aria-hidden="true">◷</span><span><strong id="time-stat">—</strong><small>WALK + PICKUP</small></span></div>
+          </div>
+          <div class="map-wrap">
+            <svg id="store-map" viewBox="0 0 800 510" preserveAspectRatio="none" role="img" aria-label="Top-down map of Albert Heijn Kiel supermarket"></svg>
+            <div class="map-legend">
+              <span><i class="legend-dot"></i> Your items</span>
+              <span><i class="legend-line"></i> Your route</span>
+            </div>
+          </div>
+          <div class="route-section">
+            <div class="route-title-row">
+              <div>
+                <span class="section-kicker">THE QUICK WAY AROUND</span>
+                <h3>Your route <span id="route-stop-label">· 0 stops</span></h3>
+              </div>
+              <span class="route-badge" id="route-badge">Add items to begin</span>
+            </div>
+            <div class="route-stops" id="route-stops"></div>
+            <div class="route-empty" id="route-empty">
+              <span aria-hidden="true">↗</span>
+              <p>Your route will appear here.</p>
+              <span>Add products from the catalog to map the quickest trip.</span>
+            </div>
+            <div class="route-footer hidden" id="route-footer">
+              <span>FINISH AT CHECKOUT</span><span class="checkout-mini" aria-hidden="true">▤</span>
+            </div>
+          </div>
+        </section>
+      </section>
+      <nav class="mobile-tabbar" id="mobile-tabbar" aria-label="Shopping planner tabs" role="tablist">
+        <button class="mobile-tab active" type="button" role="tab" id="tab-shop" aria-controls="panel-shop" aria-selected="true" data-tab="shop">
+          <span class="mobile-tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h16l-1.4 12H5.4L4 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3M8 12v.5m8-.5v.5"/></svg></span>
+          <span>Shop</span>
+        </button>
+        <button class="mobile-tab" type="button" role="tab" id="tab-list" aria-controls="panel-list" aria-selected="false" data-tab="list">
+          <span class="mobile-tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5h11v16H5V5h3Z"/><path d="M9 3h6v4H9zM9 12h7m-7 4h7"/></svg></span>
+          <span>List</span>
+          <span class="mobile-tab-count hidden" id="mobile-list-count">0</span>
+        </button>
+        <button class="mobile-tab" type="button" role="tab" id="tab-route" aria-controls="panel-route" aria-selected="false" data-tab="route">
+          <span class="mobile-tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          <span>Route</span>
+        </button>
+      </nav>
+      <footer class="page-footer"><span>Made for a better kind of grocery run.</span><span>ALBERT HEIJN KIEL · DEMO STORE</span></footer>
+    </main>
+
+    <section class="scanner-modal hidden" id="scanner-modal" role="dialog" aria-modal="true" aria-labelledby="scanner-title">
+      <div class="scanner-card">
+        <div class="scanner-header">
+          <div><span class="entry-kicker">STORE CHECK-IN</span><h2 id="scanner-title">Scan a store QR</h2></div>
+          <button class="scanner-close" id="close-scanner" type="button" aria-label="Close QR scanner">×</button>
+        </div>
+        <div class="camera-frame" id="camera-frame">
+          <video id="qr-video" muted playsinline></video>
+          <div class="camera-placeholder" id="camera-placeholder">
+            <span class="camera-scan-icon" aria-hidden="true">⌗</span>
+            <p>Camera preview will appear here</p>
+          </div>
+          <span class="scan-frame-corner top-left"></span><span class="scan-frame-corner top-right"></span>
+          <span class="scan-frame-corner bottom-left"></span><span class="scan-frame-corner bottom-right"></span>
+        </div>
+        <p class="scanner-message" id="scanner-message" role="status">Allow camera access to scan the store QR code.</p>
+        <button class="primary-button" id="start-camera" type="button">Allow camera & scan</button>
+        <button class="scanner-fallback" id="scanner-choose-store" type="button">Choose Albert Heijn Kiel instead</button>
+      </div>
+    </section>
+    <script src="app.js"></script>
+  </body>
+</html>
