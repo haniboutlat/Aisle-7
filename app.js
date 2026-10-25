@@ -27,7 +27,7 @@ const categoryColor = {
   Drinks: "#dcecef", Breakfast: "#efe9d9", Treats: "#eee1da", Deli: "#eae6dc",
 };
 const START = { x: 82, y: 455 };
-const CHECKOUT = { x: 702, y: 97 };
+const CHECKOUT = { x: 744, y: 60 };
 const AISLE_LANES = [60, 179, 298, 419, 540, 661, 744];
 const SHELF_CENTERS = [120, 237, 358, 479, 600, 703];
 const CROSS_AISLES = [105, 408];
@@ -174,6 +174,110 @@ function planRoute(order) {
   };
 }
 
+function renderMobileMap(route) {
+  const svg = $("#store-map");
+  const aisleLabels = ["PRODUCE", "DAIRY", "BAKERY", "PANTRY", "DRINKS", "MORE"];
+  const aisleCenters = [120, 237, 358, 479, 600, 703];
+  const aisleY = (index) => 112 + index * 77;
+  const aisleIndex = (product) => aisleCenters.reduce((closest, center, index) =>
+    Math.abs(center - product.x) < Math.abs(aisleCenters[closest] - product.x) ? index : closest, 0);
+  const accessPoint = (product) => {
+    const row = aisleIndex(product);
+    return {
+      x: Math.max(83, Math.min(337, 83 + (product.y - 105) * 0.68)),
+      y: aisleY(row) + 23,
+      corridorY: aisleY(row) + 53,
+    };
+  };
+  const start = { x: 29, y: 610 };
+  const checkout = { x: 375, y: 75 };
+  const walkingPath = [];
+  const addSegment = (points) => {
+    const compact = points.filter((point, index) =>
+      index === 0 || point.x !== points[index - 1].x || point.y !== points[index - 1].y);
+    walkingPath.push(...compact.slice(walkingPath.length ? 1 : 0));
+  };
+
+  if (route.length) {
+    let current = start;
+    route.forEach((product, index) => {
+      const access = accessPoint(product);
+      if (index === 0) {
+        addSegment([current, { x: start.x, y: access.corridorY }, { x: access.x, y: access.corridorY }, { x: access.x, y: access.y }]);
+      } else {
+        const previous = accessPoint(route[index - 1]);
+        addSegment([
+          { x: previous.x, y: previous.y },
+          { x: previous.x, y: previous.corridorY },
+          { x: 375, y: previous.corridorY },
+          { x: 375, y: access.corridorY },
+          { x: access.x, y: access.corridorY },
+          { x: access.x, y: access.y },
+        ]);
+      }
+      current = access;
+    });
+    const last = accessPoint(route[route.length - 1]);
+    addSegment([
+      { x: last.x, y: last.y },
+      { x: last.x, y: last.corridorY },
+      { x: 375, y: last.corridorY },
+      checkout,
+    ]);
+  }
+
+  const aisleRows = aisleLabels.map((label, index) => {
+    const y = aisleY(index);
+    const number = String(index + 1).padStart(2, "0");
+    return `<g>
+      <rect x="82" y="${y}" width="274" height="48" rx="8" fill="#edf2f7" stroke="#d9e3ed"/>
+      <path d="M173 ${y + 5}v38m91-38v38" stroke="#d9e3ed" stroke-width="1"/>
+      <path d="M88 ${y + 24}h262" stroke="#e2e9f0" stroke-dasharray="2 5"/>
+      <text x="27" y="${y + 20}" fill="#75879a" font-size="8" font-family="DM Sans, sans-serif" font-weight="700">${number}</text>
+      <text x="27" y="${y + 33}" fill="#8291a0" font-size="6.5" font-family="DM Sans, sans-serif" font-weight="600">${label}</text>
+    </g>`;
+  }).join("");
+  const markers = route.map((product, index) => {
+    const point = accessPoint(product);
+    return `<g class="map-stop" aria-label="Stop ${index + 1}: ${product.name}">
+      <circle cx="${point.x}" cy="${point.y}" r="13" fill="#ffffff"/>
+      <circle cx="${point.x}" cy="${point.y}" r="10" fill="#173f6b" stroke="#fff" stroke-width="2"/>
+      <text x="${point.x}" y="${point.y + 3.3}" text-anchor="middle" fill="#fff" font-size="9" font-family="DM Sans, sans-serif" font-weight="700">${index + 1}</text>
+    </g>`;
+  }).join("");
+
+  svg.setAttribute("viewBox", "0 0 420 650");
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  svg.innerHTML = `
+    <defs>
+      <pattern id="mobile-floor-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef1eb" stroke-width=".7"/></pattern>
+      <filter id="mobile-route-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.3" flood-color="#173f6b" flood-opacity=".2"/></filter>
+    </defs>
+    <rect width="420" height="650" fill="#f8faf7"/>
+    <rect x="14" y="18" width="392" height="614" rx="13" fill="#fbfcfa" stroke="#dfe6df" stroke-width="2"/>
+    <rect x="23" y="27" width="374" height="596" rx="9" fill="url(#mobile-floor-grid)"/>
+    <text x="30" y="53" fill="#728193" font-size="10" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">ALBERT HEIJN · KIEL</text>
+    <text x="30" y="72" fill="#9aa6b1" font-size="7" font-family="DM Sans, sans-serif" font-weight="600" letter-spacing=".7">STORE AISLES</text>
+    <rect x="365" y="87" width="19" height="478" rx="8" fill="#f0f4f7" stroke="#e1e8ee"/>
+    <text x="374" y="330" text-anchor="middle" transform="rotate(-90 374 330)" fill="#98a5b1" font-size="7" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">MAIN WALKWAY</text>
+    ${aisleRows}
+    <g aria-label="Checkout counters">
+      <text x="337" y="38" text-anchor="middle" fill="#8f8264" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing=".8">CHECKOUT</text>
+      <rect x="309" y="45" width="57" height="22" rx="5" fill="#f3eee2" stroke="#e7dfcb"/>
+      <rect x="315" y="50" width="20" height="12" rx="2" fill="#e8dfcb"/>
+      <rect x="340" y="50" width="20" height="12" rx="2" fill="#e8dfcb"/>
+    </g>
+    <g aria-label="Store entrance">
+      <path d="M22 610h36" stroke="#7894b0" stroke-width="2"/>
+      <path d="m36 602-8 8 8 8" fill="none" stroke="#7894b0" stroke-width="1.8"/>
+      <text x="72" y="613" fill="#859287" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing=".8">ENTRANCE</text>
+    </g>
+    ${route.length ? `<polyline points="${walkingPath.map((point) => `${point.x},${point.y}`).join(" ")}" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${walkingPath.map((point) => `${point.x},${point.y}`).join(" ")}" fill="none" stroke="#285e90" stroke-width="4" stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round" filter="url(#mobile-route-shadow)"/>` : ""}
+    ${route.length ? `<circle cx="${start.x}" cy="${start.y}" r="9" fill="#fff" stroke="#7894b0" stroke-width="2"/><path d="M${start.x} ${start.y - 4}v8m-3-4h6" stroke="#496d91" stroke-width="1.5"/><circle cx="${checkout.x}" cy="${checkout.y}" r="10" fill="#f5eee0" stroke="#c8b991" stroke-width="2"/><path d="M${checkout.x - 4} ${checkout.y - 3}h8v6h-8z" fill="none" stroke="#9f8e67" stroke-width="1"/>` : ""}
+    ${markers}
+  `;
+}
+
 function getRoute() {
   const remaining = [...state.selected].map((id) => products.find((product) => product.id === id));
   const order = [];
@@ -222,6 +326,12 @@ function getRoute() {
 
 function renderMap(routeData) {
   const { route } = routeData;
+  if (window.matchMedia("(max-width: 760px)").matches) {
+    renderMobileMap(route);
+    return;
+  }
+  $("#store-map").setAttribute("viewBox", "0 0 800 510");
+  $("#store-map").setAttribute("preserveAspectRatio", "none");
   const pathData = route.length ? routeData.walkingPath.map((point) => `${point.x},${point.y}`).join(" ") : "";
   const stopMarkers = route.map((product, index) => `
     <g class="map-stop" aria-label="Stop ${index + 1}: ${product.name}">
@@ -261,9 +371,9 @@ function renderMap(routeData) {
       <text x="601" y="421">05 · DRINKS</text><text x="703" y="421">06 · MORE</text>
     </g>
     <g aria-label="Checkout counters">
-      <rect x="662" y="53" width="80" height="35" rx="5" fill="#f3eee2" stroke="#e7dfcb"/>
-      <rect x="671" y="60" width="28" height="20" rx="3" fill="#e8dfcb"/><rect x="704" y="60" width="28" height="20" rx="3" fill="#e8dfcb"/>
-      <text x="702" y="49" text-anchor="middle" fill="#9a9077" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">CHECKOUT</text>
+      <rect x="677" y="39" width="80" height="35" rx="5" fill="#f3eee2" stroke="#e7dfcb"/>
+      <rect x="686" y="46" width="28" height="20" rx="3" fill="#e8dfcb"/><rect x="719" y="46" width="28" height="20" rx="3" fill="#e8dfcb"/>
+      <text x="717" y="35" text-anchor="middle" fill="#9a9077" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">CHECKOUT</text>
     </g>
     <g aria-label="Store entrance">
       <path d="M58 475h48" stroke="#fbfcfa" stroke-width="6"/>
@@ -389,7 +499,10 @@ $("#mobile-tabbar").addEventListener("keydown", (event) => {
   setMobileTab(nextTab.dataset.tab, false);
   nextTab.focus();
 });
-window.addEventListener("resize", () => setMobileTab(activeMobileTab, false));
+window.addEventListener("resize", () => {
+  setMobileTab(activeMobileTab, false);
+  renderRoute();
+});
 $("#theme-toggle").addEventListener("click", () => {
   setTheme(activeTheme === "dark" ? "light" : "dark");
 });

@@ -304,8 +304,8 @@ body.scanner-open { overflow: hidden; }
   body.mobile-route .stat-card strong { font-size: 11px; }
   body.mobile-route .stat-card small { font-size: 6px; letter-spacing: .4px; }
   body.mobile-route .map-wrap { border-radius: 9px; }
-  body.mobile-route #store-map { height: 250px; min-height: 0; }
-  body.mobile-route .map-legend { right: 6px; bottom: 6px; gap: 8px; padding: 5px 7px; font-size: 8px; }
+  body.mobile-route #store-map { width: 100%; height: auto; min-height: 0; }
+  body.mobile-route .map-legend { position: relative; right: auto; bottom: auto; width: fit-content; margin: 0 8px 8px auto; gap: 10px; padding: 5px 7px; font-size: 8px; }
   body.mobile-route .route-section { margin-top: 15px; }
   body.mobile-route .route-title-row { align-items: center; margin-bottom: 9px; }
   body.mobile-route .route-title-row h3 { font-size: 14px; }
