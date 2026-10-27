@@ -1,24 +1,24 @@
 const products = [
-  { id: "avocado", name: "Ripe Hass Avocados", brand: "AH · 2 pack", category: "Produce", price: 2.49, emoji: "🥑", bg: "#edf4df", x: 167, y: 160 },
-  { id: "bananas", name: "Organic Bananas", brand: "AH · 5–6 ct", category: "Produce", price: 1.79, emoji: "🍌", bg: "#fbf3d9", x: 167, y: 222 },
-  { id: "strawberries", name: "Sweet Strawberries", brand: "AH · 1 lb", category: "Produce", price: 4.29, emoji: "🍓", bg: "#f8e9e4", x: 167, y: 294 },
-  { id: "spinach", name: "Baby Spinach", brand: "AH · 5 oz", category: "Produce", price: 3.49, emoji: "🥬", bg: "#e7f2e4", x: 167, y: 353 },
-  { id: "milk", name: "Whole Milk", brand: "Meadow Gold · 1 gal", category: "Dairy", price: 4.19, emoji: "🥛", bg: "#e8f1f7", x: 286, y: 176 },
-  { id: "eggs", name: "Free Range Large Eggs", brand: "Happy Hen · 12 ct", category: "Dairy", price: 5.49, emoji: "🥚", bg: "#f7eee3", x: 286, y: 239 },
-  { id: "cheddar", name: "Sharp Cheddar", brand: "Tillamook · 8 oz", category: "Dairy", price: 4.79, emoji: "🧀", bg: "#fbf1dc", x: 286, y: 312 },
-  { id: "yogurt", name: "Greek Yogurt", brand: "Oikos · 5.3 oz", category: "Dairy", price: 1.69, emoji: "🥣", bg: "#f2ecf8", x: 286, y: 365 },
-  { id: "sourdough", name: "Country Sourdough", brand: "Bakery · Fresh baked", category: "Bakery", price: 5.99, emoji: "🍞", bg: "#f7ecdf", x: 407, y: 174 },
-  { id: "croissant", name: "Butter Croissants", brand: "Bakery · 4 ct", category: "Bakery", price: 4.49, emoji: "🥐", bg: "#f7eee1", x: 407, y: 253 },
-  { id: "coffee", name: "House Blend Coffee", brand: "Stumptown · 12 oz", category: "Pantry", price: 12.99, emoji: "☕", bg: "#eee8e0", x: 528, y: 165 },
-  { id: "pasta", name: "Rigatoni Pasta", brand: "De Cecco · 1 lb", category: "Pantry", price: 2.79, emoji: "🍝", bg: "#f8eddf", x: 528, y: 225 },
-  { id: "olive-oil", name: "Extra Virgin Olive Oil", brand: "California Olive Ranch · 500 ml", category: "Pantry", price: 10.49, emoji: "🫒", bg: "#edf2df", x: 528, y: 292 },
-  { id: "tomatoes", name: "San Marzano Tomatoes", brand: "Cento · 28 oz", category: "Pantry", price: 4.29, emoji: "🍅", bg: "#fae9e3", x: 528, y: 358 },
-  { id: "sparkling", name: "Sparkling Water", brand: "LaCroix · 8 pack", category: "Drinks", price: 5.99, emoji: "🫧", bg: "#e7f2f4", x: 650, y: 170 },
-  { id: "orange-juice", name: "Fresh Orange Juice", brand: "AH · 52 oz", category: "Drinks", price: 5.49, emoji: "🍊", bg: "#f9eedc", x: 650, y: 236 },
-  { id: "granola", name: "Honey Almond Granola", brand: "Nature Valley · 11 oz", category: "Breakfast", price: 5.29, emoji: "🥣", bg: "#f5ecdf", x: 650, y: 302 },
-  { id: "oats", name: "Rolled Oats", brand: "Bob's Red Mill · 32 oz", category: "Breakfast", price: 6.49, emoji: "🌾", bg: "#f3efdf", x: 650, y: 365 },
-  { id: "dark-chocolate", name: "Dark Chocolate Bar", brand: "Tony's · 6 oz", category: "Treats", price: 4.99, emoji: "🍫", bg: "#f2e9e4", x: 407, y: 350 },
-  { id: "hummus", name: "Classic Hummus", brand: "Cedar's · 10 oz", category: "Deli", price: 4.49, emoji: "🧆", bg: "#f3eee4", x: 286, y: 152 },
+  { id: "avocado", name: "Ripe Hass Avocados", brand: "AH · 2 pack", category: "Produce", price: 2.49, emoji: "🥑", bg: "#edf4df", x: 740, y: 230 },
+  { id: "bananas", name: "Organic Bananas", brand: "AH · 5–6 ct", category: "Produce", price: 1.79, emoji: "🍌", bg: "#fbf3d9", x: 765, y: 255 },
+  { id: "strawberries", name: "Sweet Strawberries", brand: "AH · 1 lb", category: "Produce", price: 4.29, emoji: "🍓", bg: "#f8e9e4", x: 605, y: 400 },
+  { id: "spinach", name: "Baby Spinach", brand: "AH · 5 oz", category: "Produce", price: 3.49, emoji: "🥬", bg: "#e7f2e4", x: 640, y: 470 },
+  { id: "milk", name: "Whole Milk", brand: "Meadow Gold · 1 gal", category: "Dairy", price: 4.19, emoji: "🥛", bg: "#e8f1f7", x: 1100, y: 820 },
+  { id: "eggs", name: "Free Range Large Eggs", brand: "Happy Hen · 12 ct", category: "Dairy", price: 5.49, emoji: "🥚", bg: "#f7eee3", x: 1275, y: 615 },
+  { id: "cheddar", name: "Sharp Cheddar", brand: "Tillamook · 8 oz", category: "Dairy", price: 4.79, emoji: "🧀", bg: "#fbf1dc", x: 1120, y: 315 },
+  { id: "yogurt", name: "Greek Yogurt", brand: "Oikos · 5.3 oz", category: "Dairy", price: 1.69, emoji: "🥣", bg: "#f2ecf8", x: 970, y: 820 },
+  { id: "sourdough", name: "Country Sourdough", brand: "Bakery · Fresh baked", category: "Bakery", price: 5.99, emoji: "🍞", bg: "#f7ecdf", x: 1275, y: 385 },
+  { id: "croissant", name: "Butter Croissants", brand: "Bakery · 4 ct", category: "Bakery", price: 4.49, emoji: "🥐", bg: "#f7eee1", x: 1235, y: 495 },
+  { id: "coffee", name: "House Blend Coffee", brand: "Stumptown · 12 oz", category: "Pantry", price: 12.99, emoji: "☕", bg: "#eee8e0", x: 1050, y: 690 },
+  { id: "pasta", name: "Rigatoni Pasta", brand: "De Cecco · 1 lb", category: "Pantry", price: 2.79, emoji: "🍝", bg: "#f8eddf", x: 985, y: 500 },
+  { id: "olive-oil", name: "Extra Virgin Olive Oil", brand: "California Olive Ranch · 500 ml", category: "Pantry", price: 10.49, emoji: "🫒", bg: "#edf2df", x: 1020, y: 550 },
+  { id: "tomatoes", name: "San Marzano Tomatoes", brand: "Cento · 28 oz", category: "Pantry", price: 4.29, emoji: "🍅", bg: "#fae9e3", x: 1025, y: 585 },
+  { id: "sparkling", name: "Sparkling Water", brand: "LaCroix · 8 pack", category: "Drinks", price: 5.99, emoji: "🫧", bg: "#e7f2f4", x: 690, y: 745 },
+  { id: "orange-juice", name: "Fresh Orange Juice", brand: "AH · 52 oz", category: "Drinks", price: 5.49, emoji: "🍊", bg: "#f9eedc", x: 670, y: 475 },
+  { id: "granola", name: "Honey Almond Granola", brand: "Nature Valley · 11 oz", category: "Breakfast", price: 5.29, emoji: "🥣", bg: "#f5ecdf", x: 1025, y: 620 },
+  { id: "oats", name: "Rolled Oats", brand: "Bob's Red Mill · 32 oz", category: "Breakfast", price: 6.49, emoji: "🌾", bg: "#f3efdf", x: 1080, y: 620 },
+  { id: "dark-chocolate", name: "Dark Chocolate Bar", brand: "Tony's · 6 oz", category: "Treats", price: 4.99, emoji: "🍫", bg: "#f2e9e4", x: 680, y: 690 },
+  { id: "hummus", name: "Classic Hummus", brand: "Cedar's · 10 oz", category: "Deli", price: 4.49, emoji: "🧆", bg: "#f3eee4", x: 1220, y: 165 },
 ];
 
 const categories = ["All", "Produce", "Dairy", "Bakery", "Pantry", "Drinks", "More"];
@@ -26,15 +26,28 @@ const categoryColor = {
   Produce: "#dcebd4", Dairy: "#dce9ef", Bakery: "#f0e4d4", Pantry: "#ece8d8",
   Drinks: "#dcecef", Breakfast: "#efe9d9", Treats: "#eee1da", Deli: "#eae6dc",
 };
-const START = { x: 82, y: 455 };
-const CHECKOUT = { x: 744, y: 60 };
-const AISLE_LANES = [60, 179, 298, 419, 540, 661, 744];
-const SHELF_CENTERS = [120, 237, 358, 479, 600, 703];
-const CROSS_AISLES = [105, 408];
-const METERS_PER_MAP_UNIT = 0.075;
+const STARTS = [{ x: 305, y: 510 }, { x: 625, y: 145 }];
+const CHECKOUT = { x: 445, y: 545 };
+const FLOORPLAN_GRID_STEP = 4;
+const REFERENCE_MAP_WIDTH = 1536;
+const REFERENCE_MAP_HEIGHT = 960;
+const FLOORPLAN_BOUNDARY = [
+  { x: 595, y: 10 }, { x: 900, y: 294 }, { x: 995, y: 145 }, { x: 1300, y: 145 },
+  { x: 1300, y: 528 }, { x: 1325, y: 535 }, { x: 1325, y: 740 }, { x: 1280, y: 844 },
+  { x: 680, y: 844 }, { x: 680, y: 950 }, { x: 350, y: 950 }, { x: 350, y: 808 },
+  { x: 295, y: 808 }, { x: 295, y: 585 }, { x: 305, y: 585 }, { x: 305, y: 454 },
+  { x: 295, y: 454 }, { x: 295, y: 233 }, { x: 375, y: 233 }, { x: 455, y: 310 },
+  { x: 500, y: 233 }, { x: 550, y: 68 },
+];
+const METERS_PER_MAP_UNIT = 0.04;
 const WALKING_SPEED_METERS_PER_MINUTE = 75;
 const PICKUP_MINUTES_PER_PRODUCT = 0.5;
 const state = { selected: new Set(), category: "All", query: "" };
+let walkabilityMap;
+let entrancePoints;
+let checkoutPoint;
+const accessPointCache = new Map();
+const pathCache = new Map();
 let activeMobileTab = "shop";
 let activeTheme = localStorage.getItem("aisle7-theme") || "light";
 
@@ -84,42 +97,226 @@ function renderCategories() {
   ).join("");
 }
 
+function isInsideFloorplan(x, y) {
+  const referenceX = x * REFERENCE_MAP_WIDTH / walkabilityMap.imageWidth;
+  const referenceY = y * REFERENCE_MAP_HEIGHT / walkabilityMap.imageHeight;
+  let inside = false;
+  for (let index = 0, previous = FLOORPLAN_BOUNDARY.length - 1; index < FLOORPLAN_BOUNDARY.length; previous = index, index += 1) {
+    const currentPoint = FLOORPLAN_BOUNDARY[index];
+    const previousPoint = FLOORPLAN_BOUNDARY[previous];
+    const crosses = (currentPoint.y > referenceY) !== (previousPoint.y > referenceY)
+      && referenceX < ((previousPoint.x - currentPoint.x) * (referenceY - currentPoint.y)) / (previousPoint.y - currentPoint.y) + currentPoint.x;
+    if (crosses) inside = !inside;
+  }
+  return inside;
+}
+
+function buildFloorplanGrid() {
+  const image = $(".map-floorplan");
+  if (!image.complete || !image.naturalWidth || !image.naturalHeight) return;
+  const canvas = document.createElement("canvas");
+  canvas.width = image.naturalWidth;
+  canvas.height = image.naturalHeight;
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  if (!context) throw new Error("Unable to create a canvas context for the store floorplan.");
+  context.drawImage(image, 0, 0);
+  const { data } = context.getImageData(0, 0, canvas.width, canvas.height);
+  const width = Math.ceil(canvas.width / FLOORPLAN_GRID_STEP);
+  const height = Math.ceil(canvas.height / FLOORPLAN_GRID_STEP);
+  const walkable = new Uint8Array(width * height);
+  walkabilityMap = { width, height, imageWidth: canvas.width, imageHeight: canvas.height, walkable };
+  for (let gridY = 0; gridY < height; gridY += 1) {
+    for (let gridX = 0; gridX < width; gridX += 1) {
+      const x = Math.floor((gridX + 0.5) * FLOORPLAN_GRID_STEP);
+      const y = Math.floor((gridY + 0.5) * FLOORPLAN_GRID_STEP);
+      if (!isInsideFloorplan(x, y)) continue;
+      const pixel = (y * canvas.width + x) * 4;
+      walkable[gridY * width + gridX] = data[pixel] > 232 && data[pixel + 1] > 232 && data[pixel + 2] > 232 ? 1 : 0;
+    }
+  }
+  entrancePoints = STARTS.map(getNearestWalkablePoint);
+  checkoutPoint = getNearestWalkablePoint(CHECKOUT);
+  const reachable = new Uint8Array(walkable.length);
+  const queue = new Int32Array(walkable.length);
+  let queueRead = 0;
+  let queueWrite = 0;
+  [...entrancePoints, checkoutPoint].forEach((point) => {
+    if (reachable[point.nodeIndex]) return;
+    reachable[point.nodeIndex] = 1;
+    queue[queueWrite] = point.nodeIndex;
+    queueWrite += 1;
+  });
+  while (queueRead < queueWrite) {
+    const node = queue[queueRead];
+    queueRead += 1;
+    const x = node % width;
+    const y = Math.floor(node / width);
+    for (let offsetY = -1; offsetY <= 1; offsetY += 1) {
+      for (let offsetX = -1; offsetX <= 1; offsetX += 1) {
+        if (!offsetX && !offsetY) continue;
+        const nextX = x + offsetX;
+        const nextY = y + offsetY;
+        if (nextX < 0 || nextY < 0 || nextX >= width || nextY >= height) continue;
+        const next = nextY * width + nextX;
+        if (!walkable[next] || reachable[next]) continue;
+        if (offsetX && offsetY && (!walkable[y * width + nextX] || !walkable[nextY * width + x])) continue;
+        reachable[next] = 1;
+        queue[queueWrite] = next;
+        queueWrite += 1;
+      }
+    }
+  }
+  walkabilityMap.walkable = reachable;
+  accessPointCache.clear();
+  pathCache.clear();
+}
+
+function getNearestWalkablePoint(point) {
+  if (!walkabilityMap) throw new Error("The store floorplan is not ready for route planning.");
+  const { width, height, imageWidth, imageHeight, walkable } = walkabilityMap;
+  const centerX = Math.floor(point.x * imageWidth / REFERENCE_MAP_WIDTH / FLOORPLAN_GRID_STEP);
+  const centerY = Math.floor(point.y * imageHeight / REFERENCE_MAP_HEIGHT / FLOORPLAN_GRID_STEP);
+  for (let radius = 0; radius <= 40; radius += 1) {
+    let nearestIndex = -1;
+    let nearestDistance = Infinity;
+    for (let offsetY = -radius; offsetY <= radius; offsetY += 1) {
+      for (let offsetX = -radius; offsetX <= radius; offsetX += 1) {
+        if (Math.max(Math.abs(offsetX), Math.abs(offsetY)) !== radius) continue;
+        const gridX = centerX + offsetX;
+        const gridY = centerY + offsetY;
+        if (gridX < 0 || gridY < 0 || gridX >= width || gridY >= height) continue;
+        const index = gridY * width + gridX;
+        if (!walkable[index]) continue;
+        const distance = offsetX * offsetX + offsetY * offsetY;
+        if (distance < nearestDistance) {
+          nearestIndex = index;
+          nearestDistance = distance;
+        }
+      }
+    }
+    if (nearestIndex !== -1) {
+      return {
+        nodeIndex: nearestIndex,
+        x: (nearestIndex % width + 0.5) * FLOORPLAN_GRID_STEP,
+        y: (Math.floor(nearestIndex / width) + 0.5) * FLOORPLAN_GRID_STEP,
+      };
+    }
+  }
+  throw new Error(`No walkable aisle found near floorplan position ${point.x}, ${point.y}.`);
+}
+
 function getAccessOptions(product) {
-  const shelfIndex = SHELF_CENTERS.reduce((closest, center, index, centers) =>
-    Math.abs(center - product.x) < Math.abs(centers[closest] - product.x) ? index : closest, 0);
-  return [AISLE_LANES[shelfIndex], AISLE_LANES[shelfIndex + 1]].map((aisleX) => ({
-    x: aisleX,
-    y: product.y,
-    aisleX,
-  }));
+  if (!accessPointCache.has(product.id)) {
+    accessPointCache.set(product.id, getNearestWalkablePoint(product));
+  }
+  return [accessPointCache.get(product.id)];
+}
+
+function findPath(startIndex, endIndex) {
+  const { width, height, walkable } = walkabilityMap;
+  const totalNodes = width * height;
+  const costs = new Float32Array(totalNodes);
+  costs.fill(Infinity);
+  const previous = new Int32Array(totalNodes);
+  previous.fill(-1);
+  const closed = new Uint8Array(totalNodes);
+  const heapNodes = [];
+  const heapCosts = [];
+  const heuristic = (index) => {
+    const dx = Math.abs(index % width - endIndex % width);
+    const dy = Math.abs(Math.floor(index / width) - Math.floor(endIndex / width));
+    return Math.max(dx, dy) + (Math.SQRT2 - 1) * Math.min(dx, dy);
+  };
+  const push = (node, cost) => {
+    let index = heapNodes.length;
+    heapNodes.push(node);
+    heapCosts.push(cost);
+    while (index > 0) {
+      const parent = Math.floor((index - 1) / 2);
+      if (heapCosts[parent] <= cost) break;
+      heapNodes[index] = heapNodes[parent];
+      heapCosts[index] = heapCosts[parent];
+      index = parent;
+    }
+    heapNodes[index] = node;
+    heapCosts[index] = cost;
+  };
+  const pop = () => {
+    const node = heapNodes[0];
+    const cost = heapCosts[0];
+    const lastNode = heapNodes.pop();
+    const lastCost = heapCosts.pop();
+    if (heapNodes.length) {
+      let index = 0;
+      while (true) {
+        const left = index * 2 + 1;
+        const right = left + 1;
+        if (left >= heapNodes.length) break;
+        const child = right < heapNodes.length && heapCosts[right] < heapCosts[left] ? right : left;
+        if (heapCosts[child] >= lastCost) break;
+        heapNodes[index] = heapNodes[child];
+        heapCosts[index] = heapCosts[child];
+        index = child;
+      }
+      heapNodes[index] = lastNode;
+      heapCosts[index] = lastCost;
+    }
+    return { node, cost };
+  };
+  costs[startIndex] = 0;
+  push(startIndex, heuristic(startIndex));
+  const neighbors = [
+    [-1, -1, Math.SQRT2], [0, -1, 1], [1, -1, Math.SQRT2],
+    [-1, 0, 1], [1, 0, 1],
+    [-1, 1, Math.SQRT2], [0, 1, 1], [1, 1, Math.SQRT2],
+  ];
+
+  while (heapNodes.length) {
+    const { node, cost } = pop();
+    if (closed[node]) continue;
+    if (node === endIndex) {
+      const points = [];
+      for (let current = endIndex; current !== -1; current = previous[current]) {
+        points.push({
+          x: (current % width + 0.5) * FLOORPLAN_GRID_STEP,
+          y: (Math.floor(current / width) + 0.5) * FLOORPLAN_GRID_STEP,
+        });
+      }
+      points.reverse();
+      return { points, distance: costs[endIndex] * FLOORPLAN_GRID_STEP };
+    }
+    closed[node] = 1;
+    const x = node % width;
+    const y = Math.floor(node / width);
+    neighbors.forEach(([offsetX, offsetY, stepCost]) => {
+      const nextX = x + offsetX;
+      const nextY = y + offsetY;
+      if (nextX < 0 || nextY < 0 || nextX >= width || nextY >= height) return;
+      const next = nextY * width + nextX;
+      if (!walkable[next] || closed[next]) return;
+      if (offsetX && offsetY && (!walkable[y * width + nextX] || !walkable[nextY * width + x])) return;
+      const nextCost = costs[node] + stepCost;
+      if (nextCost >= costs[next]) return;
+      costs[next] = nextCost;
+      previous[next] = node;
+      push(next, nextCost + heuristic(next));
+    });
+  }
+  throw new Error(`No walkable route connects floorplan grid cells ${startIndex} and ${endIndex}.`);
 }
 
 function getWalkingPath(from, to) {
-  const candidates = [];
-  const addCandidate = (points) => {
-    const compact = points.filter((point, index) =>
-      index === 0 || point.x !== points[index - 1].x || point.y !== points[index - 1].y);
-    const distance = compact.slice(1).reduce((sum, point, index) =>
-      sum + Math.abs(point.x - compact[index].x) + Math.abs(point.y - compact[index].y), 0);
-    candidates.push({ points: compact, distance });
-  };
-
-  if (from.isStart) {
-    CROSS_AISLES.forEach((crossY) => {
-      addCandidate([from, { x: from.x, y: crossY }, { x: to.aisleX, y: crossY }, to]);
-    });
-  } else if (to.isCheckout) {
-    addCandidate([from, { x: from.aisleX, y: CROSS_AISLES[0] }, { x: to.x, y: CROSS_AISLES[0] }, to]);
-  } else if (from.aisleX === to.aisleX) {
-    addCandidate([from, to]);
-  } else {
-    CROSS_AISLES.forEach((crossY) => {
-      addCandidate([from, { x: from.aisleX, y: crossY }, { x: to.aisleX, y: crossY }, to]);
-    });
-  }
-
-  return candidates.reduce((shortest, candidate) =>
-    candidate.distance < shortest.distance ? candidate : shortest);
+  if (!walkabilityMap) throw new Error("The store floorplan is not ready for route planning.");
+  const end = to.isCheckout ? checkoutPoint : to;
+  const starts = from.isStart ? entrancePoints : [from];
+  let shortest;
+  starts.forEach((start) => {
+    const cacheKey = `${start.nodeIndex}:${end.nodeIndex}`;
+    if (!pathCache.has(cacheKey)) pathCache.set(cacheKey, findPath(start.nodeIndex, end.nodeIndex));
+    const candidate = pathCache.get(cacheKey);
+    if (!shortest || candidate.distance < shortest.distance) shortest = candidate;
+  });
+  return shortest;
 }
 
 function planRoute(order) {
@@ -130,11 +327,11 @@ function planRoute(order) {
     const options = getAccessOptions(product);
     const layer = options.map((option) => {
       if (index === 0) {
-        return { cost: getWalkingPath({ ...START, isStart: true }, option).distance, previous: -1 };
+        return { cost: getWalkingPath({ isStart: true }, option).distance, previous: -1 };
       }
       let best = { cost: Infinity, previous: -1 };
       layers[index - 1].forEach((previous, previousIndex) => {
-        const previousStop = { ...order[index - 1], aisleX: getAccessOptions(order[index - 1])[previousIndex].aisleX };
+        const previousStop = { ...order[index - 1], ...getAccessOptions(order[index - 1])[previousIndex] };
         const cost = previous.cost + getWalkingPath(previousStop, option).distance;
         if (cost < best.cost) best = { cost, previous: previousIndex };
       });
@@ -146,7 +343,7 @@ function planRoute(order) {
   const lastLayer = layers[layers.length - 1];
   let bestEnd = { cost: Infinity, side: -1 };
   lastLayer.forEach((entry, side) => {
-    const lastStop = { ...order[order.length - 1], aisleX: getAccessOptions(order[order.length - 1])[side].aisleX };
+    const lastStop = { ...order[order.length - 1], ...getAccessOptions(order[order.length - 1])[side] };
     const cost = entry.cost + getWalkingPath(lastStop, { ...CHECKOUT, isCheckout: true }).distance;
     if (cost < bestEnd.cost) bestEnd = { cost, side };
   });
@@ -158,10 +355,9 @@ function planRoute(order) {
   }
   const route = order.map((product, index) => ({
     ...product,
-    aisleX: getAccessOptions(product)[chosenSides[index]].aisleX,
+    ...getAccessOptions(product)[chosenSides[index]],
   }));
-  const stops = route.map((product) => ({ x: product.aisleX, y: product.y, aisleX: product.aisleX }));
-  const itinerary = [{ ...START, isStart: true }, ...stops, { ...CHECKOUT, isCheckout: true }];
+  const itinerary = [{ isStart: true }, ...route, { ...CHECKOUT, isCheckout: true }];
   const walkingPath = [];
   for (let index = 1; index < itinerary.length; index += 1) {
     const segment = getWalkingPath(itinerary[index - 1], itinerary[index]).points;
@@ -174,114 +370,10 @@ function planRoute(order) {
   };
 }
 
-function renderMobileMap(route) {
-  const svg = $("#store-map");
-  const aisleLabels = ["PRODUCE", "DAIRY", "BAKERY", "PANTRY", "DRINKS", "MORE"];
-  const aisleCenters = [120, 237, 358, 479, 600, 703];
-  const aisleY = (index) => 112 + index * 77;
-  const aisleIndex = (product) => aisleCenters.reduce((closest, center, index) =>
-    Math.abs(center - product.x) < Math.abs(aisleCenters[closest] - product.x) ? index : closest, 0);
-  const accessPoint = (product) => {
-    const row = aisleIndex(product);
-    return {
-      x: Math.max(83, Math.min(337, 83 + (product.y - 105) * 0.68)),
-      y: aisleY(row) + 23,
-      corridorY: aisleY(row) + 53,
-    };
-  };
-  const start = { x: 29, y: 610 };
-  const checkout = { x: 375, y: 75 };
-  const walkingPath = [];
-  const addSegment = (points) => {
-    const compact = points.filter((point, index) =>
-      index === 0 || point.x !== points[index - 1].x || point.y !== points[index - 1].y);
-    walkingPath.push(...compact.slice(walkingPath.length ? 1 : 0));
-  };
-
-  if (route.length) {
-    let current = start;
-    route.forEach((product, index) => {
-      const access = accessPoint(product);
-      if (index === 0) {
-        addSegment([current, { x: start.x, y: access.corridorY }, { x: access.x, y: access.corridorY }, { x: access.x, y: access.y }]);
-      } else {
-        const previous = accessPoint(route[index - 1]);
-        addSegment([
-          { x: previous.x, y: previous.y },
-          { x: previous.x, y: previous.corridorY },
-          { x: 375, y: previous.corridorY },
-          { x: 375, y: access.corridorY },
-          { x: access.x, y: access.corridorY },
-          { x: access.x, y: access.y },
-        ]);
-      }
-      current = access;
-    });
-    const last = accessPoint(route[route.length - 1]);
-    addSegment([
-      { x: last.x, y: last.y },
-      { x: last.x, y: last.corridorY },
-      { x: 375, y: last.corridorY },
-      checkout,
-    ]);
-  }
-
-  const aisleRows = aisleLabels.map((label, index) => {
-    const y = aisleY(index);
-    const number = String(index + 1).padStart(2, "0");
-    return `<g>
-      <rect x="82" y="${y}" width="274" height="48" rx="8" fill="#edf2f7" stroke="#d9e3ed"/>
-      <path d="M173 ${y + 5}v38m91-38v38" stroke="#d9e3ed" stroke-width="1"/>
-      <path d="M88 ${y + 24}h262" stroke="#e2e9f0" stroke-dasharray="2 5"/>
-      <text x="27" y="${y + 20}" fill="#75879a" font-size="8" font-family="DM Sans, sans-serif" font-weight="700">${number}</text>
-      <text x="27" y="${y + 33}" fill="#8291a0" font-size="6.5" font-family="DM Sans, sans-serif" font-weight="600">${label}</text>
-    </g>`;
-  }).join("");
-  const markers = route.map((product, index) => {
-    const point = accessPoint(product);
-    return `<g class="map-stop" aria-label="Stop ${index + 1}: ${product.name}">
-      <circle cx="${point.x}" cy="${point.y}" r="13" fill="#ffffff"/>
-      <circle cx="${point.x}" cy="${point.y}" r="10" fill="#173f6b" stroke="#fff" stroke-width="2"/>
-      <text x="${point.x}" y="${point.y + 3.3}" text-anchor="middle" fill="#fff" font-size="9" font-family="DM Sans, sans-serif" font-weight="700">${index + 1}</text>
-    </g>`;
-  }).join("");
-
-  svg.setAttribute("viewBox", "0 0 420 650");
-  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-  svg.innerHTML = `
-    <defs>
-      <pattern id="mobile-floor-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#eef1eb" stroke-width=".7"/></pattern>
-      <filter id="mobile-route-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.3" flood-color="#173f6b" flood-opacity=".2"/></filter>
-    </defs>
-    <rect width="420" height="650" fill="#f8faf7"/>
-    <rect x="14" y="18" width="392" height="614" rx="13" fill="#fbfcfa" stroke="#dfe6df" stroke-width="2"/>
-    <rect x="23" y="27" width="374" height="596" rx="9" fill="url(#mobile-floor-grid)"/>
-    <text x="30" y="53" fill="#728193" font-size="10" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">ALBERT HEIJN · KIEL</text>
-    <text x="30" y="72" fill="#9aa6b1" font-size="7" font-family="DM Sans, sans-serif" font-weight="600" letter-spacing=".7">STORE AISLES</text>
-    <rect x="365" y="87" width="19" height="478" rx="8" fill="#f0f4f7" stroke="#e1e8ee"/>
-    <text x="374" y="330" text-anchor="middle" transform="rotate(-90 374 330)" fill="#98a5b1" font-size="7" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">MAIN WALKWAY</text>
-    ${aisleRows}
-    <g aria-label="Checkout counters">
-      <text x="337" y="38" text-anchor="middle" fill="#8f8264" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing=".8">CHECKOUT</text>
-      <rect x="309" y="45" width="57" height="22" rx="5" fill="#f3eee2" stroke="#e7dfcb"/>
-      <rect x="315" y="50" width="20" height="12" rx="2" fill="#e8dfcb"/>
-      <rect x="340" y="50" width="20" height="12" rx="2" fill="#e8dfcb"/>
-    </g>
-    <g aria-label="Store entrance">
-      <path d="M22 610h36" stroke="#7894b0" stroke-width="2"/>
-      <path d="m36 602-8 8 8 8" fill="none" stroke="#7894b0" stroke-width="1.8"/>
-      <text x="72" y="613" fill="#859287" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing=".8">ENTRANCE</text>
-    </g>
-    ${route.length ? `<polyline points="${walkingPath.map((point) => `${point.x},${point.y}`).join(" ")}" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${walkingPath.map((point) => `${point.x},${point.y}`).join(" ")}" fill="none" stroke="#285e90" stroke-width="4" stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round" filter="url(#mobile-route-shadow)"/>` : ""}
-    ${route.length ? `<circle cx="${start.x}" cy="${start.y}" r="9" fill="#fff" stroke="#7894b0" stroke-width="2"/><path d="M${start.x} ${start.y - 4}v8m-3-4h6" stroke="#496d91" stroke-width="1.5"/><circle cx="${checkout.x}" cy="${checkout.y}" r="10" fill="#f5eee0" stroke="#c8b991" stroke-width="2"/><path d="M${checkout.x - 4} ${checkout.y - 3}h8v6h-8z" fill="none" stroke="#9f8e67" stroke-width="1"/>` : ""}
-    ${markers}
-  `;
-}
-
 function getRoute() {
   const remaining = [...state.selected].map((id) => products.find((product) => product.id === id));
   const order = [];
-  let current = { ...START, isStart: true };
+  let current = { isStart: true };
   while (remaining.length) {
     let nearestIndex = 0;
     let nearestOption;
@@ -326,65 +418,21 @@ function getRoute() {
 
 function renderMap(routeData) {
   const { route } = routeData;
-  if (window.matchMedia("(max-width: 760px)").matches) {
-    renderMobileMap(route);
-    return;
-  }
-  $("#store-map").setAttribute("viewBox", "0 0 800 510");
-  $("#store-map").setAttribute("preserveAspectRatio", "none");
+  const svg = $("#store-map");
   const pathData = route.length ? routeData.walkingPath.map((point) => `${point.x},${point.y}`).join(" ") : "";
   const stopMarkers = route.map((product, index) => `
     <g class="map-stop" aria-label="Stop ${index + 1}: ${product.name}">
-      <circle cx="${product.aisleX}" cy="${product.y}" r="8.5" fill="#173f6b" stroke="#fff" stroke-width="2"></circle>
-      <text x="${product.aisleX}" y="${product.y + 2.8}" text-anchor="middle" fill="#fff" font-size="7.5" font-family="DM Sans, sans-serif" font-weight="700">${index + 1}</text>
+      <circle cx="${product.x}" cy="${product.y}" r="12" fill="#fff" fill-opacity=".92"></circle>
+      <circle cx="${product.x}" cy="${product.y}" r="9" fill="#173f6b" stroke="#fff" stroke-width="2"></circle>
+      <text x="${product.x}" y="${product.y + 3}" text-anchor="middle" fill="#fff" font-size="8" font-family="DM Sans, sans-serif" font-weight="700">${index + 1}</text>
     </g>`).join("");
-  $("#store-map").innerHTML = `
+  svg.innerHTML = `
     <defs>
-      <pattern id="floor-grid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M 22 0 L 0 0 0 22" fill="none" stroke="#eef1eb" stroke-width=".7"/></pattern>
       <filter id="route-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.3" flood-color="#173f6b" flood-opacity=".2"/></filter>
     </defs>
-    <rect width="800" height="510" fill="#f8faf7"/>
-    <rect x="28" y="28" width="744" height="447" rx="13" fill="#fbfcfa" stroke="#dfe6df" stroke-width="2"/>
-    <rect x="39" y="39" width="722" height="425" rx="9" fill="url(#floor-grid)"/>
-    <text x="55" y="64" fill="#94a097" font-size="9" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1.5">ALBERT HEIJN · KIEL</text>
-    <text x="77" y="94" fill="#a0aaa1" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">FRESH PRODUCE</text>
-    <text x="210" y="94" fill="#a0aaa1" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">DAIRY & DELI</text>
-    <text x="352" y="94" fill="#a0aaa1" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">BAKERY & TREATS</text>
-    <text x="489" y="94" fill="#a0aaa1" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">PANTRY</text>
-    <text x="621" y="94" fill="#a0aaa1" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">DRINKS & MORE</text>
-    <g fill="#edf2f7" stroke="#d9e3ed" stroke-width="1">
-      <rect x="71" y="113" width="99" height="287" rx="8"/>
-      <rect x="188" y="113" width="99" height="287" rx="8"/>
-      <rect x="309" y="113" width="99" height="287" rx="8"/>
-      <rect x="430" y="113" width="99" height="287" rx="8"/>
-      <rect x="551" y="113" width="99" height="287" rx="8"/>
-      <rect x="672" y="113" width="62" height="287" rx="8"/>
-    </g>
-    <g fill="#f0f5fa"><rect x="48" y="100" width="704" height="11" rx="4"/><rect x="48" y="401" width="704" height="12" rx="4"/></g>
-    <g stroke="#d9e3ed" stroke-width="1">
-      <path d="M78 194h85 M78 260h85 M78 326h85 M195 194h85 M195 260h85 M195 326h85 M316 194h85 M316 260h85 M316 326h85 M437 194h85 M437 260h85 M437 326h85 M558 194h85 M558 260h85 M558 326h85 M678 194h50 M678 260h50 M678 326h50"/>
-      <path d="M121 116v280 M238 116v280 M359 116v280 M480 116v280 M601 116v280 M703 116v280" stroke="#e2e9f0" stroke-dasharray="2 5"/>
-    </g>
-    <g fill="#a4b69a" font-family="DM Sans, sans-serif" font-size="7" font-weight="600" text-anchor="middle">
-      <text x="121" y="421">01 · PRODUCE</text><text x="238" y="421">02 · DAIRY</text>
-      <text x="359" y="421">03 · BAKERY</text><text x="480" y="421">04 · PANTRY</text>
-      <text x="601" y="421">05 · DRINKS</text><text x="703" y="421">06 · MORE</text>
-    </g>
-    <g aria-label="Checkout counters">
-      <rect x="677" y="39" width="80" height="35" rx="5" fill="#f3eee2" stroke="#e7dfcb"/>
-      <rect x="686" y="46" width="28" height="20" rx="3" fill="#e8dfcb"/><rect x="719" y="46" width="28" height="20" rx="3" fill="#e8dfcb"/>
-      <text x="717" y="35" text-anchor="middle" fill="#9a9077" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">CHECKOUT</text>
-    </g>
-    <g aria-label="Store entrance">
-      <path d="M58 475h48" stroke="#fbfcfa" stroke-width="6"/>
-      <path d="M58 475h48" stroke="#7894b0" stroke-width="2"/>
-      <path d="M75 467l-7 8 7 8" fill="none" stroke="#7894b0" stroke-width="1.5"/>
-      <text x="82" y="493" text-anchor="middle" fill="#859287" font-size="8" font-family="DM Sans, sans-serif" font-weight="700" letter-spacing="1">ENTRANCE</text>
-    </g>
     ${route.length ? `<polyline points="${pathData}" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="${pathData}" fill="none" stroke="#285e90" stroke-width="4" stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round" filter="url(#route-shadow)"></polyline>` : ""}
-    ${route.length ? `<circle cx="${START.x}" cy="${START.y}" r="9" fill="#fff" stroke="#7894b0" stroke-width="2"/><path d="M${START.x} ${START.y - 4}v8m-3-4h6" stroke="#496d91" stroke-width="1.5"/><circle cx="${CHECKOUT.x}" cy="${CHECKOUT.y}" r="10" fill="#f5eee0" stroke="#c8b991" stroke-width="2"/><path d="M${CHECKOUT.x - 4} ${CHECKOUT.y - 3}h8v6h-8z" fill="none" stroke="#9f8e67" stroke-width="1"/>` : ""}
+    ${route.length ? `<circle cx="${routeData.walkingPath[0].x}" cy="${routeData.walkingPath[0].y}" r="10" fill="#fff" stroke="#1688d4" stroke-width="3"/><path d="M${routeData.walkingPath[0].x - 4} ${routeData.walkingPath[0].y}h8m-4-4v8" stroke="#1688d4" stroke-width="1.5"/><circle cx="${checkoutPoint.x}" cy="${checkoutPoint.y}" r="10" fill="#f5eee0" stroke="#c8b991" stroke-width="2"/><path d="M${checkoutPoint.x - 4} ${checkoutPoint.y - 3}h8v6h-8z" fill="none" stroke="#9f8e67" stroke-width="1"/>` : ""}
     ${stopMarkers}
-    ${route.length ? `<g><rect x="95" y="438" width="56" height="18" rx="5" fill="#fff" stroke="#e0e7ee"/><text x="123" y="450" text-anchor="middle" fill="#496d91" font-size="8" font-family="DM Sans, sans-serif" font-weight="700">START</text></g>` : ""}
   `;
 }
 
@@ -454,6 +502,18 @@ renderCategories();
 renderAll();
 setMobileTab(activeMobileTab, false);
 setTheme(activeTheme);
+const floorplanImage = $(".map-floorplan");
+if (floorplanImage.complete && floorplanImage.naturalWidth) {
+  buildFloorplanGrid();
+} else {
+  floorplanImage.addEventListener("load", () => {
+    buildFloorplanGrid();
+    renderRoute();
+  }, { once: true });
+  floorplanImage.addEventListener("error", () => {
+    console.error("The store floorplan could not be loaded; route planning is unavailable.");
+  }, { once: true });
+}
 
 $("#category-tabs").addEventListener("click", (event) => {
   const button = event.target.closest("[data-category]");

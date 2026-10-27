@@ -152,7 +152,8 @@ kbd { display: grid; place-items: center; height: 19px; min-width: 19px; border:
 .stat-card strong { font: 700 14px "Manrope", sans-serif; letter-spacing: -.2px; }
 .stat-card small { color: #8e9991; font-size: 7px; letter-spacing: .8px; font-weight: 700; }
 .map-wrap { position: relative; overflow: hidden; border: 1px solid #e8ece7; border-radius: 11px; background: #f8faf7; }
-#store-map { display: block; width: 100%; height: auto; min-height: 280px; }
+.map-floorplan { display: block; width: 100%; height: auto; }
+#store-map { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
 .map-legend { position: absolute; right: 11px; bottom: 10px; display: flex; gap: 13px; padding: 7px 9px; border: 1px solid #e9eee9; border-radius: 7px; background: rgba(255,255,255,.94); color: #69766d; font-size: 9px; font-weight: 600; }
 .map-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .legend-dot { width: 8px; height: 8px; border: 2px solid #fff; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 1px var(--blue); }
@@ -262,7 +263,6 @@ body.scanner-open { overflow: hidden; }
   .stat-icon { width: 25px; height: 25px; font-size: 14px; }
   .stat-card strong { font-size: 12px; }
   .stat-card small { font-size: 6px; }
-  #store-map { min-height: 0; }
   .left-column { grid-row: 2; }
   .catalog-panel, .list-panel { padding: 18px; }
   .product-list { max-height: 300px; }
@@ -304,8 +304,7 @@ body.scanner-open { overflow: hidden; }
   body.mobile-route .stat-card strong { font-size: 11px; }
   body.mobile-route .stat-card small { font-size: 6px; letter-spacing: .4px; }
   body.mobile-route .map-wrap { border-radius: 9px; }
-  body.mobile-route #store-map { width: 100%; height: auto; min-height: 0; }
-  body.mobile-route .map-legend { position: relative; right: auto; bottom: auto; width: fit-content; margin: 0 8px 8px auto; gap: 10px; padding: 5px 7px; font-size: 8px; }
+  body.mobile-route .map-legend { right: 6px; bottom: 6px; gap: 10px; padding: 5px 7px; font-size: 8px; }
   body.mobile-route .route-section { margin-top: 15px; }
   body.mobile-route .route-title-row { align-items: center; margin-bottom: 9px; }
   body.mobile-route .route-title-row h3 { font-size: 14px; }
