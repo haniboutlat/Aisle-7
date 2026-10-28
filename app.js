@@ -42,7 +42,12 @@ const FLOORPLAN_BOUNDARY = [
 const METERS_PER_MAP_UNIT = 0.04;
 const WALKING_SPEED_METERS_PER_MINUTE = 75;
 const PICKUP_MINUTES_PER_PRODUCT = 0.5;
-const state = { selected: new Set(), category: "All", query: "" };
+const state = { selected: new Set(), category: "All", query: "", favorites: new Set(), favoritesQuery: "" };
+const STORAGE_KEY = "aisle7-db-v1";
+const GUEST_FAVORITES_KEY = "aisle7-favorites-v1";
+const DEFAULT_DATABASE = { users: [], activeUserId: null };
+let appDatabase = loadDatabase();
+state.favorites = new Set(loadGuestFavorites());
 let walkabilityMap;
 let entrancePoints;
 let checkoutPoint;
@@ -55,6 +60,234 @@ let activeRouteColor = storedRouteColor && /^#[\da-f]{6}$/i.test(storedRouteColo
 
 const $ = (selector) => document.querySelector(selector);
 const money = (amount) => `$${amount.toFixed(2)}`;
+
+function loadDatabase() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return JSON.parse(JSON.stringify(DEFAULT_DATABASE));
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.users)) {
+      return JSON.parse(JSON.stringify(DEFAULT_DATABASE));
+    }
+    return parsed;
+  } catch (error) {
+    console.error("Unable to restore Aisle 7 data.", error);
+    return JSON.parse(JSON.stringify(DEFAULT_DATABASE));
+  }
+}
+
+function persistDatabase() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appDatabase));
+}
+
+function loadGuestFavorites() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(GUEST_FAVORITES_KEY) || "[]");
+    if (!Array.isArray(stored)) return [];
+    return stored.filter((productId) => products.some((product) => product.id === productId));
+  } catch (error) {
+    console.error("Unable to restore saved products.", error);
+    return [];
+  }
+}
+
+function getFavoriteIds() {
+  const user = getCurrentUser();
+  if (!user) return state.favorites;
+  ensureUserRecord(user);
+  return new Set(user.favorites);
+}
+
+function getCurrentUser() {
+  return appDatabase.users.find((user) => user.id === appDatabase.activeUserId) || null;
+}
+
+function setCurrentUser(userId) {
+  appDatabase.activeUserId = userId;
+  persistDatabase();
+}
+
+function getUserDisplayName() {
+  const user = getCurrentUser();
+  return user ? user.name.split(" ")[0] : "Guest";
+}
+
+function getUserInitials(user) {
+  if (!user || !user.name) return "G";
+  const initials = user.name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join("");
+  return initials || "G";
+}
+
+function ensureUserRecord(user) {
+  if (!Array.isArray(user.favorites)) user.favorites = [];
+  user.favorites = user.favorites.filter((productId) => products.some((product) => product.id === productId));
+  if (!user.selectionHistory || typeof user.selectionHistory !== "object") user.selectionHistory = {};
+}
+
+function recordProductSelection(productId) {
+  const user = getCurrentUser();
+  if (!user) return;
+  ensureUserRecord(user);
+  user.selectionHistory[productId] = (user.selectionHistory[productId] || 0) + 1;
+  persistDatabase();
+}
+
+function toggleFavorite(productId) {
+  if (!products.some((product) => product.id === productId)) return;
+  const user = getCurrentUser();
+  const favorites = getFavoriteIds();
+  if (favorites.has(productId)) favorites.delete(productId);
+  else favorites.add(productId);
+  if (user) {
+    user.favorites = [...favorites];
+    persistDatabase();
+  } else {
+    state.favorites = favorites;
+    localStorage.setItem(GUEST_FAVORITES_KEY, JSON.stringify([...favorites]));
+  }
+  renderAll();
+}
+
+function getUserRecommendations(limit = 4) {
+  const user = getCurrentUser();
+  if (!user) return [];
+  ensureUserRecord(user);
+  const inHistory = user.selectionHistory;
+  const favoriteIds = getFavoriteIds();
+  const categoryCounts = {};
+  Object.entries(inHistory).forEach(([productId, count]) => {
+    const product = products.find((item) => item.id === productId);
+    if (!product) return;
+    categoryCounts[product.category] = (categoryCounts[product.category] || 0) + count;
+  });
+
+  return products
+    .filter((product) => !state.selected.has(product.id) && !favoriteIds.has(product.id))
+    .map((product) => {
+      let score = (inHistory[product.id] || 0) * 9;
+      score += (categoryCounts[product.category] || 0) * 1.5;
+      if (product.category === "Produce") score += 1;
+      return { product, score };
+    })
+    .sort((left, right) => right.score - left.score || left.product.name.localeCompare(right.product.name))
+    .slice(0, limit)
+    .map(({ product }) => product);
+}
+
+function renderUserHeader() {
+  const user = getCurrentUser();
+  const userChip = $("#user-chip");
+  const loginButton = $("#login-button");
+  const userAvatar = $("#user-avatar");
+  const userName = $("#user-name");
+  const isLoggedIn = Boolean(user);
+  userChip.classList.toggle("hidden", !isLoggedIn);
+  loginButton.classList.toggle("hidden", isLoggedIn);
+  if (user) {
+    userAvatar.textContent = getUserInitials(user);
+    userName.textContent = getUserDisplayName();
+    userAvatar.setAttribute("aria-label", `${user.name} profile`);
+  }
+}
+
+function renderFavorites() {
+  const favorites = getFavoriteIds();
+  const favoriteProducts = products.filter((product) => favorites.has(product.id));
+  const query = state.favoritesQuery.trim().toLowerCase();
+  const visibleProducts = favoriteProducts.filter((product) =>
+    `${product.name} ${product.brand} ${product.category}`.toLowerCase().includes(query));
+  $("#favorites-count").textContent = favoriteProducts.length;
+  $("#mobile-favorites-count").textContent = favoriteProducts.length;
+  $("#mobile-favorites-count").classList.toggle("hidden", favoriteProducts.length === 0);
+  $("#favorites-items").innerHTML = visibleProducts.map((product) => {
+    const isAdded = state.selected.has(product.id);
+    return `
+      <article class="saved-product-card">
+        <span class="saved-product-emoji" style="--emoji-bg:${categoryColor[product.category]}" aria-hidden="true">${product.emoji}</span>
+        <div class="saved-product-copy">
+          <strong>${product.name}</strong>
+          <span>${product.category} · ${product.brand.split(" · ").at(-1)}</span>
+        </div>
+        <span class="saved-product-price">${money(product.price)}</span>
+        <button class="${isAdded ? "saved-added-button" : "saved-add-button"}" type="button" data-add="${product.id}" aria-label="${isAdded ? `${product.name} is already on your list` : `Add ${product.name} to your list`}" title="${isAdded ? "Already on your list" : `Add ${product.name} to your list`}" ${isAdded ? "disabled" : ""}>${isAdded ? "✓" : "+"}</button>
+        <button class="favorite-remove" type="button" data-favorite-toggle="${product.id}" aria-label="Remove ${product.name} from favourites" title="Remove from favourites">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+        </button>
+      </article>
+    `;
+  }).join("");
+  $("#favorites-items").classList.toggle("hidden", visibleProducts.length === 0);
+  $("#favorites-empty-state").classList.toggle("hidden", visibleProducts.length !== 0);
+  const noFavorites = favoriteProducts.length === 0;
+  $("#favorites-empty-title").textContent = noFavorites ? "Your favourites live here" : "No matches";
+  $("#favorites-empty-copy").textContent = noFavorites
+    ? "Tap the heart beside a product to save it for your next shop."
+    : "Try another search, or clear it to see all your favourites.";
+  $("#empty-browse-products").classList.toggle("hidden", !noFavorites);
+}
+
+function openAuthModal() {
+  const modal = $("#auth-modal");
+  modal.classList.remove("hidden");
+  $("#auth-message").textContent = "";
+  $("#auth-username").focus();
+}
+
+function closeAuthModal() {
+  $("#auth-modal").classList.add("hidden");
+  $("#login-button").focus();
+}
+
+function signInDemoUser(username, password) {
+  if (username !== "admin" || password !== "admin123") return false;
+  let user = appDatabase.users.find((record) => record.username === "admin" || record.id === "demo-admin");
+  if (!user) {
+    user = { id: "demo-admin", username: "admin", name: "Admin", favorites: [], selectionHistory: {} };
+    appDatabase.users.push(user);
+  }
+  user.username = "admin";
+  user.name = "Admin";
+  ensureUserRecord(user);
+  setCurrentUser(user.id);
+  return true;
+}
+
+function renderRecommendations() {
+  const panel = $("#recommendations-panel");
+  if (!panel) return;
+  const recommendations = getUserRecommendations();
+  if (!recommendations.length) {
+    panel.classList.add("hidden");
+    panel.innerHTML = "";
+    return;
+  }
+  panel.classList.remove("hidden");
+  panel.innerHTML = `
+    <div class="recommendation-header">
+      <div>
+        <span class="section-kicker">PERSONALIZED FOR YOU</span>
+        <h3>Recommended picks</h3>
+      </div>
+    </div>
+    <div class="recommendation-grid">
+      ${recommendations.map((product) => `
+        <button class="recommendation-card" type="button" data-add="${product.id}">
+          <span class="product-emoji" style="--emoji-bg:${categoryColor[product.category]}">${product.emoji}</span>
+          <span class="recommendation-copy">
+            <strong>${product.name}</strong>
+            <small>${product.category}</small>
+          </span>
+          <span class="recommendation-price">${money(product.price)}</span>
+        </button>
+      `).join("")}
+    </div>
+  `;
+}
 
 function setRouteColor(color, save = true) {
   activeRouteColor = color;
@@ -79,21 +312,28 @@ function setTheme(theme) {
 
 function renderCatalog() {
   const query = state.query.trim().toLowerCase();
+  const favoriteIds = getFavoriteIds();
   const filtered = products.filter((product) => {
     const matchesCategory = state.category === "All"
-      || (state.category === "More" ? ["Breakfast", "Treats", "Deli"].includes(product.category) : product.category === state.category);
+      || (state.category === "More" ? ["Breakfast", "Treats", "Deli"].includes(product.category)
+        : product.category === state.category);
     const matchesQuery = !query || `${product.name} ${product.brand} ${product.category}`.toLowerCase().includes(query);
     return matchesCategory && matchesQuery;
   });
   $("#product-list").innerHTML = filtered.map((product) => {
     const isAdded = state.selected.has(product.id);
+    const isFavorite = favoriteIds.has(product.id);
     return `<article class="product-row">
       <span class="product-emoji" style="--emoji-bg:${categoryColor[product.category]}">${product.emoji}</span>
       <div class="product-info"><p class="product-name">${product.name}</p><p class="product-meta">${product.category} · ${product.brand.split(" · ").at(-1)}</p></div>
       <span class="product-price">${money(product.price)}</span>
+      <button class="favorite-button${isFavorite ? " is-favorite" : ""}" type="button" data-favorite-toggle="${product.id}" aria-label="${isFavorite ? `Remove ${product.name} from saved items` : `Save ${product.name} for next time`}" aria-pressed="${isFavorite}" title="${isFavorite ? "Remove from saved items" : "Save for next time"}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>
+      </button>
       <button class="${isAdded ? "added-button" : "add-button"}" type="button" data-add="${product.id}" aria-label="${isAdded ? `${product.name} added to list` : `Add ${product.name} to list`}" ${isAdded ? "disabled" : ""}>${isAdded ? "✓" : "+"}</button>
     </article>`;
   }).join("");
+  $("#no-results").textContent = "No products found. Try a different search.";
   $("#no-results").classList.toggle("hidden", filtered.length !== 0);
   $("#catalog-count").textContent = `${filtered.length} ${filtered.length === 1 ? "item" : "items"}`;
   document.querySelectorAll(".category-tab").forEach((tab) => {
@@ -487,9 +727,20 @@ function renderRoute() {
 }
 
 function renderAll() {
+  renderUserHeader();
   renderCatalog();
+  renderFavorites();
+  renderRecommendations();
   renderList();
   renderRoute();
+}
+
+function addProductToList(productId) {
+  const product = products.find((item) => item.id === productId);
+  if (!product || state.selected.has(productId)) return;
+  state.selected.add(productId);
+  recordProductSelection(productId);
+  renderAll();
 }
 
 function setMobileTab(tab, scrollToTop = true) {
@@ -539,10 +790,39 @@ $("#product-search").addEventListener("input", (event) => {
   renderCatalog();
 });
 $("#product-list").addEventListener("click", (event) => {
+  const favoriteButton = event.target.closest("[data-favorite-toggle]");
+  if (favoriteButton) {
+    toggleFavorite(favoriteButton.dataset.favoriteToggle);
+    return;
+  }
   const button = event.target.closest("[data-add]");
   if (!button) return;
-  state.selected.add(button.dataset.add);
-  renderAll();
+  addProductToList(button.dataset.add);
+});
+$("#favorites-search").addEventListener("input", (event) => {
+  state.favoritesQuery = event.target.value;
+  renderFavorites();
+});
+$("#favorites-items").addEventListener("click", (event) => {
+  const favoriteButton = event.target.closest("[data-favorite-toggle]");
+  if (favoriteButton) {
+    toggleFavorite(favoriteButton.dataset.favoriteToggle);
+    return;
+  }
+  const addButton = event.target.closest("[data-add]");
+  if (addButton) addProductToList(addButton.dataset.add);
+});
+$("#browse-products").addEventListener("click", () => {
+  setMobileTab("shop");
+  window.requestAnimationFrame(() => $("#product-search").focus({ preventScroll: true }));
+});
+$("#empty-browse-products").addEventListener("click", () => {
+  setMobileTab("shop");
+  window.requestAnimationFrame(() => $("#product-search").focus({ preventScroll: true }));
+});
+$("#recommendations-panel").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-add]");
+  if (button) addProductToList(button.dataset.add);
 });
 $("#shopping-items").addEventListener("click", (event) => {
   const button = event.target.closest("[data-remove]");
@@ -579,6 +859,28 @@ window.addEventListener("resize", () => {
 $("#theme-toggle").addEventListener("click", () => {
   setTheme(activeTheme === "dark" ? "light" : "dark");
 });
+$("#login-button").addEventListener("click", openAuthModal);
+$("#logout-button").addEventListener("click", () => {
+  setCurrentUser(null);
+  renderAll();
+});
+$("#close-auth").addEventListener("click", closeAuthModal);
+$("#auth-modal").addEventListener("click", (event) => {
+  if (event.target === $("#auth-modal")) closeAuthModal();
+});
+$("#auth-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const username = $("#auth-username").value.trim();
+  const password = $("#auth-password").value;
+  if (!signInDemoUser(username, password)) {
+    $("#auth-message").textContent = "That username or password isn't right. Try the demo credentials below.";
+    $("#auth-password").select();
+    return;
+  }
+  $("#auth-form").reset();
+  $("#auth-modal").classList.add("hidden");
+  renderAll();
+});
 $("#route-color").addEventListener("input", (event) => {
   setRouteColor(event.target.value);
 });
@@ -599,6 +901,7 @@ document.addEventListener("click", (event) => {
   $("#store-options").classList.add("hidden");
 });
 document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !$("#auth-modal").classList.contains("hidden")) closeAuthModal();
   if (event.key === "Escape" && $("#store-picker-trigger").getAttribute("aria-expanded") === "true") {
     $("#store-picker-trigger").setAttribute("aria-expanded", "false");
     $("#store-options").classList.add("hidden");
