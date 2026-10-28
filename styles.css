@@ -16,6 +16,7 @@
   --text-price: #334239;
   --border-subtle: #edf0ed;
   --shadow: 0 10px 30px rgba(29, 52, 66, .045), 0 1px 3px rgba(29, 52, 66, .035);
+  --route-color: #d9480f;
 }
 
 html[data-theme="dark"] {
@@ -140,6 +141,10 @@ kbd { display: grid; place-items: center; height: 19px; min-width: 19px; border:
 .map-heading { display: flex; align-items: flex-start; justify-content: space-between; }
 .map-heading h2 { font-size: 18px; }
 .map-heading p { margin: 5px 0 0; color: #849087; font-size: 11px; }
+.map-heading-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
+.route-color-control { display: inline-flex; align-items: center; gap: 6px; color: #718078; font-size: 8px; font-weight: 700; letter-spacing: .6px; }
+.route-color-control input { width: 31px; height: 25px; padding: 2px; border: 1px solid #dfe7df; border-radius: 6px; background: var(--paper); cursor: pointer; }
+.route-color-control input:focus-visible { outline: 3px solid #aec4dc; outline-offset: 2px; }
 .map-live { display: inline-flex; align-items: center; gap: 7px; margin-top: 2px; padding: 6px 8px; border: 1px solid #e7eee8; border-radius: 6px; color: #718078; font-size: 8px; letter-spacing: .8px; font-weight: 700; }
 .map-live span { width: 5px; height: 5px; box-shadow: none; }
 .map-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0 13px; }
@@ -157,7 +162,7 @@ kbd { display: grid; place-items: center; height: 19px; min-width: 19px; border:
 .map-legend { position: absolute; right: 11px; bottom: 10px; display: flex; gap: 13px; padding: 7px 9px; border: 1px solid #e9eee9; border-radius: 7px; background: rgba(255,255,255,.94); color: #69766d; font-size: 9px; font-weight: 600; }
 .map-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .legend-dot { width: 8px; height: 8px; border: 2px solid #fff; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 1px var(--blue); }
-.legend-line { width: 15px; border-top: 2px dashed #285e90; }
+.legend-line { width: 15px; border-top: 3px solid var(--route-color); }
 .route-section { margin-top: 19px; }
 .route-title-row { align-items: flex-end; margin-bottom: 12px; }
 .route-title-row h3 { margin: 0; font: 700 15px "Manrope", sans-serif; }

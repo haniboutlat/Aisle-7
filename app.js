@@ -50,9 +50,21 @@ const accessPointCache = new Map();
 const pathCache = new Map();
 let activeMobileTab = "shop";
 let activeTheme = localStorage.getItem("aisle7-theme") || "light";
+const storedRouteColor = localStorage.getItem("aisle7-route-color");
+let activeRouteColor = storedRouteColor && /^#[\da-f]{6}$/i.test(storedRouteColor) ? storedRouteColor : "#d9480f";
 
 const $ = (selector) => document.querySelector(selector);
 const money = (amount) => `$${amount.toFixed(2)}`;
+
+function setRouteColor(color, save = true) {
+  activeRouteColor = color;
+  document.documentElement.style.setProperty("--route-color", color);
+  $("#route-color").value = color;
+  if (save) {
+    localStorage.setItem("aisle7-route-color", color);
+    renderRoute();
+  }
+}
 
 function setTheme(theme) {
   activeTheme = theme;
@@ -430,7 +442,7 @@ function renderMap(routeData) {
     <defs>
       <filter id="route-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.3" flood-color="#173f6b" flood-opacity=".2"/></filter>
     </defs>
-    ${route.length ? `<polyline points="${pathData}" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="${pathData}" fill="none" stroke="#285e90" stroke-width="4" stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round" filter="url(#route-shadow)"></polyline>` : ""}
+    ${route.length ? `<polyline points="${pathData}" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="${pathData}" fill="none" stroke="${activeRouteColor}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" filter="url(#route-shadow)"></polyline>` : ""}
     ${route.length ? `<circle cx="${routeData.walkingPath[0].x}" cy="${routeData.walkingPath[0].y}" r="10" fill="#fff" stroke="#1688d4" stroke-width="3"/><path d="M${routeData.walkingPath[0].x - 4} ${routeData.walkingPath[0].y}h8m-4-4v8" stroke="#1688d4" stroke-width="1.5"/><circle cx="${checkoutPoint.x}" cy="${checkoutPoint.y}" r="10" fill="#f5eee0" stroke="#c8b991" stroke-width="2"/><path d="M${checkoutPoint.x - 4} ${checkoutPoint.y - 3}h8v6h-8z" fill="none" stroke="#9f8e67" stroke-width="1"/>` : ""}
     ${stopMarkers}
   `;
@@ -499,6 +511,7 @@ function setMobileTab(tab, scrollToTop = true) {
 }
 
 renderCategories();
+setRouteColor(activeRouteColor, false);
 renderAll();
 setMobileTab(activeMobileTab, false);
 setTheme(activeTheme);
@@ -565,6 +578,9 @@ window.addEventListener("resize", () => {
 });
 $("#theme-toggle").addEventListener("click", () => {
   setTheme(activeTheme === "dark" ? "light" : "dark");
+});
+$("#route-color").addEventListener("input", (event) => {
+  setRouteColor(event.target.value);
 });
 $("#store-picker-trigger").addEventListener("click", () => {
   const trigger = $("#store-picker-trigger");

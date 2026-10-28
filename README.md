@@ -10,6 +10,7 @@ Aisle 7 is a shopping web app that helps customers find products quickly and nav
 - 🏬 Interactive visual store layout
 - 📍 Locate products in the store
 - 🗺️ Generate an efficient shopping route
+- 🎨 Adjust the route line colour for visibility
 
 ## Tech Stack
 
